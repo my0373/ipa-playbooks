@@ -1,7 +1,7 @@
 ---
-# This playbook installs tree on all nodes
+# This playbook installs the rng-tools service
 
-- name: Install tree on all nodes
+- name: Install the random number generator service on all IPA nodes
   hosts: ipa
   remote_user: root
 
