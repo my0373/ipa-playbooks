@@ -1,0 +1,41 @@
+---
+# This playbook installs tree on all nodes
+
+- name: Install tree on all nodes
+  hosts: ipa
+  remote_user: root
+  tasks:
+    - name: Get the current entropy of the system
+      local_action: shell cat /proc/sys/kernel/random/entropy_avail
+      # This flag means as long as we get a result, it won't ever report
+      # a change. This is ideal for a dynamic value check.
+      #changed_when: False
+      register: entropy_avail
+      always_run: True
+      become: yes
+      become_method: sudo
+
+    - set_fact:
+        pre_entropy:  "{{ entropy_avail.stdout }}"
+        pre_entropy_raw:  "{{ entropy_avail }}"
+
+    - debug:  msg="pre_entropy is {{ pre_entropy }}"
+    - debug:  msg="pre_entropy is {{ pre_entropy_raw }}"
+    - name: Determine if we need to increase the entropy of the system
+      set_fact:
+        low_entropy: True
+        when: pre_entropy < 500
+
+    - name: Install the random number generator package
+      yum: name=rng-tools  state=latest
+      when: low_entropy
+
+    - name: Update the /usr/lib/systemd/system/rngd.service file
+      ini_file: dest=/usr/lib/systemd/system/rngd.service
+                section=service
+                option=ExecStart
+                value="/sbin/rngd -f -r /dev/urandom -o /dev/random"
+                backup=yes
+
+    - name: Enable the random number generator service
+      service: name=rngd enabled=yes state=started
