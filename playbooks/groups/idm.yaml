@@ -1,5 +1,11 @@
 ---
+## Here we define the mapping between hosts and roles
+## I'm also defining my group specific variables here.
 - hosts: idm
+  vars:
+    ntp_servers:
+    - '192.168.0.241'
+    - '192.168.0.242'
   user: ansible
   roles:
   - common

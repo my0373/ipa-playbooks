@@ -1,0 +1,25 @@
+---
+## So originally I was going to use this list iterator syntax.
+## I've since decided I prefer to explicity choose the package,
+## and print the package name as it's installed.
+#  - name: Ensure Python SELinux bindings are installed
+#    yum:
+#      name: {{ item }}
+#      state: latest
+#
+#    become: True
+#    with_items:
+#      - libselinux-python
+#      - libsemanage-python
+
+  - name: Ensure libselinux-python is installed
+    yum:
+      name: libselinux-python
+      state: latest
+    become: True
+
+  - name: Ensure libsemanage-python is installed
+    yum:
+      name: libsemanage-python
+      state: latest
+    become: True

@@ -1,0 +1,17 @@
+---
+
+  - name: Ensure ntp is installed
+    yum:
+      name: ntp
+      state: latest
+    become: True
+    notify: Restart NTPD
+
+
+  handlers:
+  - name: Restart NTPD
+    service:
+      name: ntpd
+      state: restarted
+    become: True
+

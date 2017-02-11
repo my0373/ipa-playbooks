@@ -1,0 +1,8 @@
+---
+
+  - name: Ensure vim is installed
+    yum:
+      name: vim
+      state: latest
+    become: True
+
