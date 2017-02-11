@@ -1,0 +1,5 @@
+---
+- hosts: idm
+  user: ansible
+  roles:
+  - common
