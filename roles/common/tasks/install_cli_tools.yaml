@@ -1,26 +1,11 @@
 ---
 
-  - name: Ensure tree is installed
+  - name: Ensure default packages are installed
     yum:
-      name: tree
-      state: latest
-    become: True
+      name={{ item }}
+      state=latest
 
-  - name: Ensure iptraf-ng is installed
-    yum:
-      name: iptraf-ng
-      state: latest
-    become: True
-
-  - name: Ensure git is installed
-    yum:
-      name: git
-      state: latest
-    become: True
-
-  - name: Ensure wget is installed
-    yum:
-      name: wget
-      state: latest
+    with_items:
+     - "{{ default_packages }}"
     become: True
 

@@ -9,14 +9,9 @@
       mode: 0644
     become: True
 
+  - name: "Install some basic cli tools"
+    include: install_cli_tools.yaml
+
   - name: "Configure NTP"
     include: configure_ntp.yaml
 
-  - name: "Install Python SELinux bindings"
-    include: selinux_PYTHON_bindings.yaml
-
-  - name: "Install text editors"
-    include: configure_vim.yaml
-
-  - name: "Install some basic cli tools"
-    include: install_cli_tools.yaml

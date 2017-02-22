@@ -1,0 +1,11 @@
+default_packages:
+  - tree
+  - iptraf-ng
+  - git
+  - wget
+  - ntpdate
+  - bind-utils
+  - vim
+  - libselinux-python
+  - libsemanage-python
+  - python-firewall
