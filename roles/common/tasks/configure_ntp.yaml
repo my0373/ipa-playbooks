@@ -6,13 +6,6 @@
   ## 4) Enable and start the ntp daemon
   ## 5) Wait for ntpq -p to sync
 
-
-  - name: Ensure ntpdate is installed
-    yum:
-      name: ntpdate
-      state: latest
-    become: True
-
   - name: Ensure chrony package is removed
     yum:
       name: chrony
